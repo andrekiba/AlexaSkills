@@ -1,7 +1,9 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlexaSkills", "AlexaSkills.csproj", "{B4C8B2FD-7A56-4345-82E4-366E3CB76272}"
+VisualStudioVersion = 15.0.28010.2048
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlexaSkills", "AlexaSkills.csproj", "{452E891D-1E9C-4CEB-B9C3-AA8833446250}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,9 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B4C8B2FD-7A56-4345-82E4-366E3CB76272}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B4C8B2FD-7A56-4345-82E4-366E3CB76272}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B4C8B2FD-7A56-4345-82E4-366E3CB76272}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B4C8B2FD-7A56-4345-82E4-366E3CB76272}.Release|Any CPU.Build.0 = Release|Any CPU
+		{452E891D-1E9C-4CEB-B9C3-AA8833446250}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{452E891D-1E9C-4CEB-B9C3-AA8833446250}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{452E891D-1E9C-4CEB-B9C3-AA8833446250}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{452E891D-1E9C-4CEB-B9C3-AA8833446250}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D66534C3-7B36-4E9F-B183-9ADF713C6290}
 	EndGlobalSection
 EndGlobal

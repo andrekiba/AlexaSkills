@@ -58,13 +58,12 @@ namespace AlexaSkills.Extensions
             var isTimestampValid = RequestTimestampWithinTolerance(skillRequest.Request.Timestamp);
             var isValid = await RequestVerification.Verify(signature, certUrl, body);
 
-            if (!isValid || !isTimestampValid)
-            {
-                log.LogError("Validation failed - RequestVerification failed");
-                return false;
-            }
+            if (isValid && isTimestampValid)
+                return true;
 
-            return true;
+            log.LogError("Validation failed - RequestVerification failed");
+            return false;
+
         }
 
         private static bool RequestTimestampWithinTolerance(DateTime timestamp)
