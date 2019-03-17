@@ -1,16 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netstandard20</TargetFramework>
     <AzureFunctionsVersion>v2</AzureFunctionsVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Remove=".gitignore" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Alexa.NET" Version="1.5.5" />
-    <PackageReference Include="HtmlAgilityPack" Version="1.8.10" />
-    <PackageReference Include="Meetup.NetStandard" Version="0.2.0" />
-    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.24" />
+    <PackageReference Include="Alexa.NET" Version="1.5.7" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.9.2" />
+    <PackageReference Include="Meetup.NetStandard" Version="0.4.1" />
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.26" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">
@@ -21,4 +21,17 @@
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
   </ItemGroup>
+
+  <PropertyGroup>
+    <_IsFunctionsSdkBuild Condition="$(_FunctionsTaskFramework) != ''">true</_IsFunctionsSdkBuild>
+    <_FunctionsExtensionsDir>$(TargetDir)</_FunctionsExtensionsDir>
+    <_FunctionsExtensionsDir Condition="$(_IsFunctionsSdkBuild) == 'true'">$(_FunctionsExtensionsDir)bin</_FunctionsExtensionsDir>
+  </PropertyGroup>
+
+  <Target Name="CopyExtensionsJson" AfterTargets="_GenerateFunctionsAndCopyContentFiles">
+    <Message Importance="High" Text="Overwritting extensions.json file with one from build." />
+
+    <Copy Condition="$(_IsFunctionsSdkBuild) == 'true' AND Exists('$(_FunctionsExtensionsDir)\extensions.json')" SourceFiles="$(_FunctionsExtensionsDir)\extensions.json" DestinationFiles="$(PublishDir)bin\extensions.json" OverwriteReadOnlyFiles="true" ContinueOnError="true" />
+  </Target>
+  
 </Project>

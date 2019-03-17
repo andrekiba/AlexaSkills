@@ -263,3 +263,6 @@ paket-files/
 __pycache__/
 *.pyc
 \.mfractor/
+
+# .DS_Store
+*.DS_Store
