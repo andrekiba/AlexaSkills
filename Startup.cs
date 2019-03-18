@@ -11,7 +11,7 @@ namespace KLabSkill
     {
         public void Configure(IWebJobsBuilder builder)
         {
-            builder.Services.AddSingleton<AppSettings>();
+            //builder.Services.AddSingleton<AppSettings>();
         }
     }
 }

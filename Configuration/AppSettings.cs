@@ -2,13 +2,13 @@
 
 namespace KLabSkill.Configuration
 {
-    public class AppSettings
+    public static class AppSettings
     {
-        public string MeetupApiToken { get; }
+        public static string MeetupApiToken { get; }
 
-        readonly IConfigurationRoot config;
+        static readonly IConfigurationRoot config;
 
-        public AppSettings()
+        static AppSettings()
         {
             config = new ConfigurationBuilder()
                 .AddEnvironmentVariables()
@@ -17,6 +17,6 @@ namespace KLabSkill.Configuration
             MeetupApiToken = config.GetValue<string>("MeetupApiToken");
         }
 
-        public string GetValue(string key) => config.GetValue<string>(key);
+        public static string GetValue(string key) => config.GetValue<string>(key);
     }
 }

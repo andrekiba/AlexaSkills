@@ -29,15 +29,13 @@ namespace KLabSkill
         const string BreakStrong = "<break strength=\"strong\"/>";
         const string BreakMedium = "<break strength=\"medium\"/>";
         const string Break = "<break/>";
-        readonly AppSettings configuration;
         readonly MeetupClient meetup;
 
         #endregion 
 
-        public KLabSkill(AppSettings configuration)
-        {
-            this.configuration = configuration;
-            meetup = MeetupClient.WithApiToken(this.configuration.MeetupApiToken);
+        public KLabSkill()
+        {           
+            meetup = MeetupClient.WithApiToken(AppSettings.MeetupApiToken);
         }
 
         [FunctionName("KLabSkill")]
@@ -95,8 +93,8 @@ namespace KLabSkill
 
         static SkillResponse HandleLaunchRequest(LaunchRequest request, Session session)
         {
-            var reprompt = new Repr($"Ad esempio puoi dirmi, {BreakStrong} Quando sarò il prossimo evento? Oppure, {BreakStrong} Quali sono i dettagli del prossimo evento?".ToSsmlSpeech());
-            var response = ResponseBuilder.Ask("Ciao! Benvenuto in KLab Community.".ToSsmlSpeech(), reprompt);
+            var reprompt = new Repr($"Ad esempio puoi dirmi, {BreakStrong} Quando sarà il prossimo evento? Oppure, {BreakStrong} Quali sono i dettagli del prossimo evento?".ToSsmlSpeech());
+            var response = ResponseBuilder.Ask("Ciao! Benvenuto in KLab Community. Cosa desideri sapere?".ToSsmlSpeech(), reprompt);
             response.Response.ShouldEndSession = false;
             return response;
         }
@@ -154,7 +152,8 @@ namespace KLabSkill
                 {
                     
                     var repr = new Repr("Desideri sapere altro?");
-                    response = ResponseBuilder.Ask($"Il prossimo KLab sarà il {eventData.LocalDate}, {BreakStrong} alle ore {eventData.LocalTime} presso {eventData.Venue.Name}".ToSsmlSpeech(), repr);
+                    response = ResponseBuilder.Ask(($"Il prossimo KLab sarà il {Break} {eventData.LocalDate}, " +
+                                                   $"{Break} alle ore {eventData.LocalTime} presso {Break} {eventData.Venue.Name}").ToSsmlSpeech(), repr);
                 }
                 else
                 {
@@ -174,7 +173,8 @@ namespace KLabSkill
                 .Select(p => HtmlEntity.DeEntitize(p.InnerHtml))
                 .Select(p => p.Replace("<br>", "\n\r"))
                 .Select(p => p.Replace(" ~ ", ", tenuto da"))
-                .Select(p => Regex.Replace(p, "(\\d+).(\\d+)", "$1:$2"));
+                //.Select(p => Regex.Replace(p, @"\(\d{4}\)", "<say-as interpret-as=\"time\">$1</say-as>"))                        
+                .Select(p => Regex.Replace(p, "(\\d{2}).(\\d{2})", "$1:$2"));
 
             var stripped = string.Join("\n\r", goodPs);
 
