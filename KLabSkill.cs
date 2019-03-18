@@ -119,6 +119,7 @@ namespace KLabSkill
         static SkillResponse HandleCancelStopIntent(IntentRequest request, Session session)
         {
             var response = ResponseBuilder.Tell("OK, ci vediamo al prossimo KLab!");
+            response.Response.ShouldEndSession = true;
             return response;
         }
 
@@ -152,8 +153,8 @@ namespace KLabSkill
                 {
                     
                     var repr = new Repr("Desideri sapere altro?");
-                    response = ResponseBuilder.Ask(($"Il prossimo KLab sarà il {Break} {eventData.LocalDate}, " +
-                                                   $"{Break} alle ore {eventData.LocalTime} presso {Break} {eventData.Venue.Name}").ToSsmlSpeech(), repr);
+                    response = ResponseBuilder.Ask(($"Il prossimo KLab sarà il {eventData.LocalDate}, " +
+                                                   $"{BreakMedium} alle ore {eventData.LocalTime} presso {eventData.Venue.Name}").ToSsmlSpeech(), repr);
                 }
                 else
                 {
@@ -187,7 +188,7 @@ namespace KLabSkill
 
         static SkillResponse HandleUnhandled(IntentRequest request)
         {
-            var reprompt = new Repr($"Se hai bisogno di aiuto prova a dire {BreakStrong} Alexa, aiuto.");
+            var reprompt = new Repr($"Se hai bisogno di aiuto prova a dire {BreakMedium} Alexa, aiuto.");
             var response = ResponseBuilder.Ask("Non ho capito cosa mi hai chiesto? Per favore, dimmelo di nuovo.".ToSsmlSpeech(), reprompt);
             return response;
         }
